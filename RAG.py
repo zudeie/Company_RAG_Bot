@@ -48,4 +48,4 @@ def Use_RAG(query: str)->str:
     response = Rag_chain.invoke(query)
     return response.content
 
-print(Use_RAG("What is the company policy on remote work?"))
+# print(Use_RAG("What is the company policy on remote work?"))
