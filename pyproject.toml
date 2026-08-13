@@ -1,0 +1,32 @@
+[project]
+name = "assignmentii"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "dotenv>=0.9.9",
+    "fastapi>=0.141.1",
+    "huggingface-hub>=1.27.0",
+    "langchain>=1.3.15",
+    "langchain-agent>=0.1.1",
+    "langchain-community>=0.4.2",
+    "langchain-core>=1.5.4",
+    "langchain-groq>=1.1.3",
+    "langchain-huggingface>=1.2.2",
+    "langchain-openai>=1.4.3",
+    "langchain-pinecone>=0.2.13",
+    "langchain-text-splitters>=1.1.2",
+    "mysql-connector-python>=26.7.0",
+    "pinecone>=7.3.0",
+    "pydantic>=2.13.4",
+    "pymysql>=1.2.0",
+    "pypdf>=6.15.0",
+    "python-dotenv>=1.2.2",
+    "redis>=8.1.0",
+    "sentence-transformers>=5.7.0",
+    "sqlalchemy>=2.0.52",
+    "transformers>=5.15.0",
+    "typing>=3.10.0.0",
+    "uvicorn>=0.52.1",
+]
