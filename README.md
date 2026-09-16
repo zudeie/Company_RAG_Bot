@@ -106,6 +106,7 @@ Use the same session_id for the whole conversation so the bot remembers previous
 4. If the slot is free, it calls book_interview_slot
 5. Confirms the booking to the user
 6. The bot is instructed to never book without checking first.
+
 ### Notes
 
 * The LLM is currently Qwen2.5-7B through HuggingFace. 
