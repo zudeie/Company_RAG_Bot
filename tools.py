@@ -9,11 +9,11 @@ def check_interview_slot(job:str, date:str, time:str)->str:
     if result:
         return f"An interview slot is already taken for {job} on {date} at {time},please choose a new slot."
     else:
-        return f"No interview slot is available for {job} on {date} at {time}."
+        return f"Yes interview slot is available for {job} on {date} at {time}."
 
 @tool
 def book_interview_slot(name:str,email:str,job:str,date:str,time:str)->str:
-    """Book an interview slot for the user. Use this tool when the user has provided allrequired booking information"""
+    """Book an interview slot for the user. Use this tool when the user has provided all required booking information"""
     result = book_interview(name, email, job, date, time)
     if result:
         return f"Your interview is sucessfully booked {job} on {date} at {time},Thankyou for Applying."

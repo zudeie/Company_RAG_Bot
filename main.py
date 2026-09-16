@@ -12,8 +12,8 @@ class chat_model(BaseModel):
 
 @app.get("/")
 async def root():
-    return {"message": "Conversational RAG BOT for Nexora Company. "
-            "instructions: Please use /query to query the bot with your question. "}
+    return {"message": "Conversational RAG BOT for Nexora Company. ",
+            "instructions": "Please use /chat to query the bot with your question. "}
 
 @app.post("/chat")
 async def query_bot(query: chat_model):
