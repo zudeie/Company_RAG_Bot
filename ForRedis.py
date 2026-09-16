@@ -1,5 +1,6 @@
 from agent import agent
 from langchain_core.messages import HumanMessage, AIMessage
+from langfuse.langchain import CallbackHandler
 import os
 import redis
 
@@ -40,8 +41,12 @@ def chat(session_id: str, message: str) -> str:
 
     messages.append(HumanMessage(content=message))
 
+    #adding langfuse tracing 
+
+    langfuse_handler = CallbackHandler()
+
     # Call the agent
-    result = agent.invoke({"messages": messages})
+    result = agent.invoke({"messages": messages},config={"callbacks":[langfuse_handler],"metadata":{"langfuse_session_id":session_id}})
 
     # Extract the actual reply text 
     if isinstance(result, dict) and "messages" in result:
