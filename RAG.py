@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 llm=HuggingFaceEndpoint(
-    repo_id="Qwen/Qwen2.5-7B-Instruct",
+    repo_id="NousResearch/Hermes-3-Llama-3.1-8B:featherless-ai",
     task="text-generation",
     max_new_tokens=50
 )

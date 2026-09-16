@@ -27,7 +27,7 @@ def chat(session_id: str, message: str) -> str:
     # Load previous messages
     history = get_history(session_id)
 
-    # # Build a simple prompt that includes the conversation history
+    # Build a simple prompt that includes the conversation history
     # previous_messages = "\n".join(history)
     # prompt = f"""Previous messages: {previous_messages} Current user message: {message}"""
 
@@ -46,7 +46,19 @@ def chat(session_id: str, message: str) -> str:
     langfuse_handler = CallbackHandler()
 
     # Call the agent
-    result = agent.invoke({"messages": messages},config={"callbacks":[langfuse_handler],"metadata":{"langfuse_session_id":session_id}})
+    result = agent.invoke(
+        {"messages": messages},
+        config={
+            "callbacks": [langfuse_handler],
+            "configurable": {
+                "session_id": session_id
+            },
+            "metadata": {
+                "langfuse_session_id": session_id,
+                "session_id": session_id
+            }
+        }
+    )
 
     # Extract the actual reply text 
     if isinstance(result, dict) and "messages" in result:

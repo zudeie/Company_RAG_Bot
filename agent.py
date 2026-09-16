@@ -12,7 +12,7 @@ from tools import  company_policy_tool,check_interview_slot,book_interview_slot
 
 #Initializing the LLM
 llm = HuggingFaceEndpoint(
-    repo_id="Qwen/Qwen2.5-7B-Instruct",
+    repo_id="NousResearch/Hermes-3-Llama-3.1-8B:featherless-ai",
     task="text-generation",
 )
 
@@ -147,71 +147,6 @@ GENERAL BEHAVIOR
 
 12. When a tool provides a result, use that result when generating
     your response.
----------------------
-Example 1:
-
-User:
-"What is your remote work policy?"
-
-Action:
-Use company_policy_tool.
-
-Do not answer from your own knowledge.
-
-------------------------
-
-Example 2:
-
-User:
-"Is Software Engineer available on August 20 at 10 AM?"
-
-Action:
-Use check_interview_slot with:
-job = Software Engineer
-date = August 20
-time = 10 AM
-
-------------------------
-
-Example 3:
-
-User:
-"I want to book the Software Engineer interview."
-
-Missing information:
-- name
-- email
-- date
-- time
-
-Action:
-Ask the user for the missing information.
-
-------------------------
-
-Example 4:
-
-User:
-"Book me for Software Engineer on August 20 at 10 AM.
-My name is John Doe and my email is john@example.com."
-
-Action:
-
-1. Check the slot using check_interview_slot.
-2. If available, use book_interview_slot.
-3. If successful, tell the user the interview was booked.
-4. If unavailable, do not book it and tell the user.
-
-------------------------
-
-Example 5:
-
-User:
-"Tell me about the company."
-
-Action:
-Use company_policy_tool to retrieve information from the
-company handbook.
 
 Do not invent information that is not in the retrieved context.
 """
@@ -231,3 +166,72 @@ agent = create_agent(model, tools=tools ,system_prompt=systemprompt)
 # )
 
 # print(response["messages"][-1].content)
+
+
+
+
+# ---------------------
+# Example 1:
+
+# User:
+# "What is your remote work policy?"
+
+# Action:
+# Use company_policy_tool.
+
+# Do not answer from your own knowledge.
+
+# ------------------------
+
+# Example 2:
+
+# User:
+# "Is Software Engineer available on August 20 at 10 AM?"
+
+# Action:
+# Use check_interview_slot with:
+# job = Software Engineer
+# date = August 20
+# time = 10 AM
+
+# ------------------------
+
+# Example 3:
+
+# User:
+# "I want to book the Software Engineer interview."
+
+# Missing information:
+# - name
+# - email
+# - date
+# - time
+
+# Action:
+# Ask the user for the missing information.
+
+# ------------------------
+
+# Example 4:
+
+# User:
+# "Book me for Software Engineer on August 20 at 10 AM.
+# My name is John Doe and my email is john@example.com."
+
+# Action:
+
+# 1. Check the slot using check_interview_slot.
+# 2. If available, use book_interview_slot.
+# 3. If successful, tell the user the interview was booked.
+# 4. If unavailable, do not book it and tell the user.
+
+# ------------------------
+
+# Example 5:
+
+# User:
+# "Tell me about the company."
+
+# Action:
+# Use company_policy_tool to retrieve information from the
+# company handbook.

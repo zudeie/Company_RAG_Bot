@@ -12,14 +12,17 @@ The bot has three main abilities:
 
 It remembers the conversation using Redis so it doesn't ask for the same information again and again.
 
+I also added Langfuse for observability so I can see the full traces of every conversation and tool call.
+
 ## Tech Stack
 
 - FastAPI for the backend API
 - LangChain agents + tools
-- HuggingFace (Qwen2.5-7B-Instruct) as the LLM
+- HuggingFace Hermes-3-Llama-3.1-8B:featherless-ai as the LLM
 - Pinecone as the vector database
 - MySQL for storing interview bookings
 - Redis for chat history
+- Langfuse (self hosted) for tracing and observability
 - SQLAlchemy for database operations
 
 ## Project Structure
@@ -30,7 +33,7 @@ Company_RAG_Bot/
 ├── tools.py            # The three tools (policy, check slot, book slot)
 ├── Database.py         # MySQL functions for checking and booking
 ├── RAG.py              # RAG chain using Pinecone
-├── ForRedis.py         # Chat history + main chat function
+├── ForRedis.py         # Chat history + main chat function + Langfuse
 ├── main.py             # FastAPI app
 ├── LoadVectorDB.py     # Script to load documents into Pinecone
 ├── company_handbook/   # Company policy documents
@@ -55,6 +58,9 @@ DATABASE_URL=mysql+pymysql://user:password@host:port/dbname
 REDIS_URL=redis://...
 PINECONE_API_KEY=your_pinecone_key
 HUGGINGFACEHUB_API_TOKEN=your_hf_token
+LANGFUSE_PUBLIC_KEY=pk-lf-...
+LANGFUSE_SECRET_KEY=sk-lf-...
+LANGFUSE_HOST=http://localhost:3000
 ```
 4. Make sure your MySQL table exists. Something like:
 ```bash
@@ -72,7 +78,15 @@ SQLCREATE TABLE interview_bookings (
 ```bash
 python LoadVectorDB.py
 ```
-6. Start the server:
+6. Start Langfuse (self-hosted)::
+
+```
+git clone https://github.com/langfuse/langfuse.git
+cd langfuse
+docker compose up -d
+```
+#### Then open http://localhost:3000 and create a project + API keys.
+7. Start the server:
 
 ```bash
 uvicorn main:app --reload
@@ -106,6 +120,10 @@ Use the same session_id for the whole conversation so the bot remembers previous
 4. If the slot is free, it calls book_interview_slot
 5. Confirms the booking to the user
 6. The bot is instructed to never book without checking first.
+
+### Observability
+
+#### I integrated Langfuse (self-hosted) so every conversation and tool call is traced. You can see the full flow in the Langfuse UI at http://localhost:3000.
 
 ### Notes
 
