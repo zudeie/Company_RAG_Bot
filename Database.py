@@ -28,16 +28,18 @@ def check_slot(job, date, time):
                 "time": time
             }
         )
-
-        return result.fetchone()
+        if result.fetchone()==None:
+            return False #DB has no data
+        else:
+            return True #DB has data
 
 
 def book_interview(name, email, job, date, time):
 
     check = check_slot(job, date, time)
 
-    if check:
-        return False
+    if check==True: #DB has data
+        return False #cannot be booked
 
     with engine.begin() as db:
 
@@ -57,7 +59,7 @@ def book_interview(name, email, job, date, time):
             }
         )
 
-    return True
+    return True #data has been booked successfully
 
 #TESTING
 # result = book_interview(

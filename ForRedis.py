@@ -27,10 +27,7 @@ def chat(session_id: str, message: str) -> str:
 
     # Build a simple prompt that includes the conversation history
     previous_messages = "\n".join(history)
-    prompt = f"""Previous messages:
-{previous_messages}
-
-Current user message: {message}"""
+    prompt = f"""Previous messages: {previous_messages} Current user message: {message}"""
 
     # Call the agent
     result = agent.invoke({"messages": [{"role": "user", "content": prompt}]})

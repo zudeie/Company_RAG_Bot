@@ -6,7 +6,7 @@ from RAG import Use_RAG
 def check_interview_slot(job:str, date:str, time:str)->str: 
     """Check if an interview slot is available for a given job, date, and time. Use this tool when the user asks about availability of a specific interview slot. Example: Is there an interview slot available for a Software Engineer on 2026-07-01 at 10:00:00? """
     result = check_slot(job, date, time)
-    if result:
+    if result: #DB has data
         return f"An interview slot is already taken for {job} on {date} at {time},please choose a new slot."
     else:
         return f"Yes interview slot is available for {job} on {date} at {time}."
@@ -15,10 +15,10 @@ def check_interview_slot(job:str, date:str, time:str)->str:
 def book_interview_slot(name:str,email:str,job:str,date:str,time:str)->str:
     """Book an interview slot for the user. Use this tool when the user has provided all required booking information"""
     result = book_interview(name, email, job, date, time)
-    if result:
+    if result: #data has been booked successfully
         return f"Your interview is sucessfully booked {job} on {date} at {time},Thankyou for Applying."
     else:
-        return f"Sorry The interview slot is already bookede for {job} on {date} at {time}."
+        return f"Sorry The interview slot is already booked for {job} on {date} at {time}."
 
 @tool
 def company_policy_tool(query:str)->str:
