@@ -83,7 +83,8 @@ API Usage
 
 Send a POST request to /chat
 
-``` JSON{
+``` 
+JSON{
   "session_id": "any-unique-id",
   "message": "I want to book a Software Engineer interview"
 }
