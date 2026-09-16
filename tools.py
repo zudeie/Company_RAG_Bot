@@ -7,10 +7,10 @@ def check_interview_slot(job:str, date:str, time:str)->str:
     """Check if an interview slot is available for a given job, date, and time. Use this tool when the user asks about availability of a specific interview slot. Example: Is there an interview slot available for a Software Engineer on 2026-07-01 at 10:00:00? """
     result = check_slot(job, date, time)
     if result: #DB has data
-        return f"An interview slot is already taken for {job} on {date} at {time},please choose a new slot."
+        return f"NOT AVAILABLE.An interview slot is already taken for {job} on {date} at {time},please choose a new slot."
     else:
-        return f"Yes interview slot is available for {job} on {date} at {time}."
-
+        return f"AVAILABLE.The interview slot for {job} on {date} at {time} is free and can be booked."
+    
 @tool
 def book_interview_slot(name:str,email:str,job:str,date:str,time:str)->str:
     """Book an interview slot for the user. Use this tool when the user has provided all required booking information"""

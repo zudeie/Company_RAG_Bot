@@ -1,4 +1,5 @@
 from agent import agent
+from langchain_core.messages import HumanMessage, AIMessage
 import os
 import redis
 
@@ -25,12 +26,22 @@ def chat(session_id: str, message: str) -> str:
     # Load previous messages
     history = get_history(session_id)
 
-    # Build a simple prompt that includes the conversation history
-    previous_messages = "\n".join(history)
-    prompt = f"""Previous messages: {previous_messages} Current user message: {message}"""
+    # # Build a simple prompt that includes the conversation history
+    # previous_messages = "\n".join(history)
+    # prompt = f"""Previous messages: {previous_messages} Current user message: {message}"""
+
+    messages=[] 
+
+    for msg in history:
+        if msg.startswith("Human: "):
+            messages.append(HumanMessage(content=msg[7:]))
+        elif msg.startswith("AI: "):
+            messages.append(AIMessage(content=msg[4:]))
+
+    messages.append(HumanMessage(content=message))
 
     # Call the agent
-    result = agent.invoke({"messages": [{"role": "user", "content": prompt}]})
+    result = agent.invoke({"messages": messages})
 
     # Extract the actual reply text 
     if isinstance(result, dict) and "messages" in result:
